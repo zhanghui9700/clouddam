@@ -1,0 +1,20 @@
+{
+		"transactionId": "asdfasdfadsfsadfdsafdsfa",
+		"transactionType": 0,
+		"isWebSite": "true",
+		"clientName": "xxxxx",
+		"isBGP": false,
+		"custIp": "",
+		"ipVol": 1,
+		"domain": "xxx.xxx.com",
+		"sourceIp": "xxx.xxx.xxxx.xxx",
+		"sourcePortMapping": {"xxx.xxx.xxx.xxx":[[80],[80]]},
+		"registry": "京ICP证xxxxxx号-x",
+		"sslConfig": {
+			"xxx.xxx.com": {
+				"sslCertificate": "sfdadfadsfasdfasfdsaf...",
+				"sslCertificateKey": "fsdfadsfdsfadsfafdasf...",
+				"sslCertificateChain": "fsadfadsfasdfadsfadsf..."
+			}
+		}
+}
