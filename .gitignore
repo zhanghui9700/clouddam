@@ -5,6 +5,7 @@
 *.sqlite?
 *.sw?
 .venv
+.vscode
 */.venv/*
 *.pyc
 *.pid

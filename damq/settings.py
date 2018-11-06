@@ -15,7 +15,6 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
@@ -23,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = 'vn)&0+gb%&c33tpltfkv2fg@&=)w051z7ukrtga&zl-&gzd+y0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -104,12 +103,16 @@ LANGUAGE_CODE = 'zh_cn'
 
 STATIC_URL = '/static/'
 
+LOG_PATH =  os.path.join(BASE_DIR, '..', 'logs')
+if not os.path.isdir(LOG_PATH):
+    os.mkdir(LOG_PATH)
+LOG_FILE =  os.path.join(LOG_PATH, 'hiddos.log')
 
 LOGGING = {
     'version': 1,
     'formatters': {
         "verbose": {
-            'format': '[%(asctime)s] [%(levelname)s] %(message)s',
+            'format': '%(asctime)s %(levelname)s [Line: %(lineno)s] -- %(message)s',
             'datefmt': '%m/%d/%Y %H:%M:%S',
         }
     },
@@ -119,16 +122,27 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'verbose',
         },
+        'default': {
+            'level': 'DEBUG' if DEBUG else 'INFO',
+            'filters': None,
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': LOG_FILE,
+            'formatter': 'verbose'
+        },
     },
     'loggers': {
         'django': {
             'handlers': ['console'],
             'level': 'INFO',
         },
+        'root': {
+            'handlers': ['console', 'default'],
+            'level': 'DEBUG' if DEBUG else 'INFO',
+        },
     },
     'root': {
-        'handlers': ['console'],
-        'level': 'INFO',
+        'handlers': ['console', 'default'],
+        'level': 'DEBUG' if DEBUG else 'INFO',
     },
 }
 

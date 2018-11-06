@@ -31,8 +31,19 @@ class Command(BaseCommand):
             raise e
 
         self._log("CHECK_MAIL", result)
+    
+    def _check_rpc_send(self):
+        try:
+            from rpc import notify
+            msg = "{'test': 'This message used for checking email settings.'}"
+            notify(msg, routing="transResponse")
+        except Exception as e:
+            raise e
+
+        self._log("CHECK_RPC_SEND", True)
 
     def handle(self, *args, **kwargs):
         self.stdout.write(self.style.WARNING("************CHECK START************"))
         self._check_mail()
+        self._check_rpc_send()
         self.stdout.write(self.style.WARNING("************CHECK  END*************"))

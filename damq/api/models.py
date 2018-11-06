@@ -55,20 +55,25 @@ class Transaction(models.Model):
     @classmethod
     def create_and_send_mail(cls, mq_message):
         data = mq_message
-        tx_type = data.pop('transactionType')
-        tx_id = data.pop('transactionId')
+        tx_type = data.get('transactionType')
+        tx_id = data.get('transactionId')
         msg = json.dumps(data, sort_keys=True, indent=4, separators=(', ', ': '))
-        
+
+        tx_type_display = [t for t in TRANSACTION_TYPE_CHOICES if t[0] == tx_type]
         try:
-            title = "New Transaction: %s, type: %s" % (tx_id, tx_type)
+            # send mail first, then save and ack
+            title = "New Transaction: %s, type: %s" % (tx_id, tx_type_display[0][1])
             result = send_mail(title, msg,
                     settings.EMAIL_FROM, settings.CLOUDDAM_NOTIFY_EMAIL)
+
+            logger.info("Send notify email result: %s", result)
 
             tx = cls.objects.create(
                 transactionId = tx_id,
                 transactionType = tx_type,
                 message = msg
             )
+            return tx
         except Exception as ex:
             logger.exception("Transaction create and save raise exception")
 

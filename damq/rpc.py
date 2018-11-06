@@ -57,7 +57,7 @@ class ConsumerProducerMixin(ConsumerMixin):
 
 
 def notify(message, routing='transResponse'):
-    LOG.debug("Send msg%s, route=%s", message, routing)
+    LOG.info("Send msg `%s`, route=%s", message, routing)
 
     with Connection(settings.WORKER_CONNECTTION) as conn:
         with conn.Producer(serializer='json') as producer:
@@ -67,7 +67,7 @@ def notify(message, routing='transResponse'):
                                  routing_key=routing,
                                  declare=[response_queue])
             except amqp_exceptions.PreconditionFailed as e:
-                LOG.warning(str(e))
+                LOG.exception("Send message failed")
 
 
 class RPCConsumer(ConsumerProducerMixin):
@@ -83,7 +83,7 @@ class RPCConsumer(ConsumerProducerMixin):
     def on_message(self, body, msg):
         callback = getattr(self.receiver, 'process')
         try:
-            LOG.debug('Receive msg body=%s routing=%s', body, msg.delivery_info['routing_key'])
+            LOG.info('Receive msg body=%s routing=%s', body, msg.delivery_info['routing_key'])
             callback(body, msg, self)
         except KeyboardInterrupt:
             LOG.error("Receiverd interrupted.")
@@ -101,4 +101,3 @@ class RPCConsumer(ConsumerProducerMixin):
         except amqp_exceptions.PreconditionFailed as e:
             self.on_precondition_failed(str(e))
             self.run(*args, **kwargs)
-
