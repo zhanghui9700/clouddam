@@ -27,7 +27,6 @@ class Endpoint(object):
 
 
 class RpcEndpoint(Endpoint):
-    routing = 'op'
 
     def on_message(self, message, options, ctx):
         LOG.info('Receive result body=%s', message)
@@ -43,18 +42,7 @@ class RpcEndpoint(Endpoint):
 
 class Receiver(object):
 
-    def __init__(self):
-        self.endpoints = [RpcEndpoint]
-
     def process(self, message, options, ctx):
-
-        close_old_connections()
-        for endpoint in self.endpoints:
-            if options.delivery_info['routing_key'] == endpoint.routing:
-                processer = endpoint()
-                processer.on_message(message, options, ctx)
-                processer.on_acknowledge(message, options)
-                break
-        else:
-            LOG.error('Message topic %s not supported',
-                     options.delivery_info['routing_key'])
+        processer = RpcEndpoint()
+        processer.on_message(message, options, ctx)
+        processer.on_acknowledge(message, options)
