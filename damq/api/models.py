@@ -1,5 +1,6 @@
 #-*- coding=utf-8 -*-
 
+from __future__ import unicode_literals
 import json
 import logging
 
@@ -20,6 +21,7 @@ TRANSACTION_TYPE_CHOICES = (
     (4, _("Add IP")),
     (5, _("Delete IP")),
     (6, _("Update Domain")),
+    (7, _("Register")),
 )
 
 
@@ -42,7 +44,9 @@ class Transaction(models.Model):
     registry = models.CharField(_("Registry"), max_length=255, blank=True)
     sslConfig = JSONField(_("SSL Config"), default={}, blank=True)
     """
-    message = JSONField(_("MQ Message"), max_length=65535, blank=False)
+    message = JSONField(_("Request Message"), max_length=65535, blank=False)
+    response = JSONField(_("Response Message"), max_length=65535,
+                        blank=False)
     deleted = models.BooleanField(_("Deleted"), default=False)
     completed = models.BooleanField(_("Completed"), default=False)
     createDate = models.DateTimeField(_("Create Date"), auto_now_add=True)
@@ -57,7 +61,7 @@ class Transaction(models.Model):
         data = mq_message
         tx_type = data.get('transactionType')
         tx_id = data.get('transactionId')
-        msg = json.dumps(data, sort_keys=True, indent=4, separators=(', ', ': '))
+        msg = json.dumps(data, ensure_ascii=False, sort_keys=True, indent=4, separators=(', ', ': '))
 
         tx_type_display = [t for t in TRANSACTION_TYPE_CHOICES if t[0] == tx_type]
         try:

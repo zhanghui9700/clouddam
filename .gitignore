@@ -33,3 +33,4 @@ local_settings.py
 history.json
 .cache
 media
+static

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-05 22:38+0800\n"
+"POT-Creation-Date: 2018-11-12 12:15+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,94 +18,102 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: models.py:11
+#: models.py:16
 msgid "New Transaction"
 msgstr "新增业务"
 
-#: models.py:12
+#: models.py:17
 msgid "Delete Transaction"
 msgstr "删除业务"
 
-#: models.py:13
+#: models.py:18
 msgid "Update Transaction"
 msgstr "更新业务"
 
-#: models.py:14
+#: models.py:19
 msgid "Update Cert"
 msgstr "更新证书"
 
-#: models.py:15
+#: models.py:20
 msgid "Add IP"
 msgstr "新增防护IP"
 
-#: models.py:16
+#: models.py:21
 msgid "Delete IP"
 msgstr "删除防护IP"
 
-#: models.py:17
+#: models.py:22
 msgid "Update Domain"
 msgstr "修改业务域名"
 
 #: models.py:23
+#| msgid "Registry"
+msgid "Register"
+msgstr "备案信息"
+
+#: models.py:29
 msgid "Transaction ID"
 msgstr "业务ID"
 
-#: models.py:25
+#: models.py:30
 msgid "Transaction Type"
 msgstr "业务类型"
 
-#: models.py:27
-msgid "Client Name"
-msgstr "客户业务名称"
+#: models.py:46
+msgid "Request Message"
+msgstr "接收信息"
 
-#: models.py:28
-msgid "Alias"
-msgstr "客户业务别名"
+#: models.py:47
+msgid "Response Message"
+msgstr "回复消息"
 
-#: models.py:29
-msgid "IsBGP"
-msgstr "是否需要BGP"
-
-#: models.py:30
-msgid "IsWeb"
-msgstr "是否Web业务"
-
-#: models.py:31
-msgid "Custome IP"
-msgstr "高防IP"
-
-#: models.py:32
-msgid "IP Volume"
-msgstr "IP数量"
-
-#: models.py:33
-msgid "Client Domain"
-msgstr "客户域名"
-
-#: models.py:34
-msgid "Source IP"
-msgstr "源IP"
-
-#: models.py:35
-msgid "Source Port Mapping"
-msgstr "源端口映射"
-
-#: models.py:37
-msgid "Registry"
-msgstr "备案号"
-
-#: models.py:38
-msgid "SSL Config"
-msgstr "域名证书"
-
-#: models.py:40
+#: models.py:49
 msgid "Deleted"
 msgstr "是否删除"
 
-#: models.py:41
-msgid "Create Date"
-msgstr "创建日志"
+#: models.py:50
+#| msgid "Deleted"
+msgid "Completed"
+msgstr "已完成"
 
-#: models.py:45 models.py:46
+#: models.py:51
+msgid "Create Date"
+msgstr "创建日期"
+
+#: models.py:55 models.py:56
 msgid "Transaction"
-msgstr "业务"
+msgstr "DDOS业务"
+
+#: templates/admin/custom_change_template.html:6
+msgid "Make Completed And Send RPC"
+msgstr "处理完成并发送RPC消息"
+
+#~ msgid "Client Name"
+#~ msgstr "客户业务名称"
+
+#~ msgid "Alias"
+#~ msgstr "客户业务别名"
+
+#~ msgid "IsBGP"
+#~ msgstr "是否需要BGP"
+
+#~ msgid "IsWeb"
+#~ msgstr "是否Web业务"
+
+#~ msgid "Custome IP"
+#~ msgstr "高防IP"
+
+#~ msgid "IP Volume"
+#~ msgstr "IP数量"
+
+#~ msgid "Client Domain"
+#~ msgstr "客户域名"
+
+#~ msgid "Source IP"
+#~ msgstr "源IP"
+
+#~ msgid "Source Port Mapping"
+#~ msgstr "源端口映射"
+
+#~ msgid "SSL Config"
+#~ msgstr "域名证书"
