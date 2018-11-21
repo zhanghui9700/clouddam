@@ -22,7 +22,7 @@ class TransactionAdmin(admin.ModelAdmin):
                 _json = json.loads(response)
                 _mq_notify = json.dumps(_json, ensure_ascii=False, sort_keys=True)
                 print _mq_notify
-                #notify(_mq_notify, routing="transResponse")
+                #notify(_json, routing="transResponse")
                 obj.response = response
                 obj.completed = True
                 obj.save()
